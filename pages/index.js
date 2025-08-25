@@ -17,3 +17,37 @@ export default function Home() {
     </div>
   )
 }
+export default function Home() {
+return (
+<div className="grid gap-6">
+<section className="card">
+<h1 className="text-3xl font-bold mb-2">Welcome to GameHeaven</h1>
+<p className="text-slate-300">Free Fire / PUBG / COD Top-up • YouTube & Netflix Premium</p>
+</section>
+
+
+<section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<div className="card">
+<h3 className="text-xl font-semibold mb-1">Free Fire</h3>
+<p className="text-slate-300 text-sm">Diamond top-up (demo)</p>
+<button className="btn btn-primary mt-3">View</button>
+</div>
+<div className="card">
+<h3 className="text-xl font-semibold mb-1">PUBG</h3>
+<p className="text-slate-300 text-sm">UC top-up (demo)</p>
+<button className="btn btn-primary mt-3">View</button>
+</div>
+<div className="card">
+<h3 className="text-xl font-semibold mb-1">Call of Duty</h3>
+<p className="text-slate-300 text-sm">CP top-up (demo)</p>
+<button className="btn btn-primary mt-3">View</button>
+</div>
+<div className="card">
+<h3 className="text-xl font-semibold mb-1">Netflix / YouTube</h3>
+<p className="text-slate-300 text-sm">Premium (demo)</p>
+<button className="btn btn-primary mt-3">View</button>
+</div>
+</section>
+</div>
+);
+}

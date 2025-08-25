@@ -1,66 +1,39 @@
-import { getSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 
-
 export default function Login() {
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const result = await signIn("credentials", {
+      redirect: true,
+      email,
+      password,
+      callbackUrl: "/dashboard",
+    });
+    console.log(result);
+  }
 
-const handleSubmit = async (e) => {
-e.preventDefault();
-setLoading(true);
-setError("");
-const res = await signIn("credentials", {
-redirect: true,
-callbackUrl: "/dashboard",
-email,
-password,
-});
-// NextAuth handle করবে
-setLoading(false);
-};
-
-
-return (
-<div className="max-w-md mx-auto card">
-<h1 className="text-2xl font-bold mb-4">Sign in</h1>
-<form onSubmit={handleSubmit} className="grid gap-3">
-<input
-type="email"
-placeholder="Email"
-value={email}
-onChange={(e) => setEmail(e.target.value)}
-className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2"
-required
-/>
-<input
-type="password"
-placeholder="Password"
-value={password}
-onChange={(e) => setPassword(e.target.value)}
-className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2"
-required
-/>
-<button disabled={loading} className="btn btn-primary">
-{loading ? "Signing in..." : "Sign in"}
-</button>
-</form>
-<p className="text-sm text-slate-400 mt-3">
-Demo Admin: <code>admin@example.com / Admin@123</code><br/>
-Demo User: <code>user@example.com / User@123</code>
-</p>
-</div>
-);
-}
-
-
-export async function getServerSideProps(ctx) {
-const session = await getSession(ctx);
-if (session) {
-return { redirect: { destination: "/dashboard" } };
-}
-return { props: {} };
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <form onSubmit={handleSubmit} className="bg-slate-800 p-6 rounded-xl shadow w-96">
+        <h1 className="text-2xl font-bold mb-4">Login</h1>
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full p-2 mb-3 rounded"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full p-2 mb-3 rounded"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit" className="btn btn-primary w-full">Login</button>
+      </form>
+    </div>
+  );
 }
